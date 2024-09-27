@@ -1,9 +1,11 @@
 body {
-  margin:20;
+  margin:50;
   font-family: sans-serif;
+  color: green;
 }
 
 h1 {
   font-weight: bolder;
+  color : green;
 }
 
