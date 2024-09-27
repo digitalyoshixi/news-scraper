@@ -1,4 +1,4 @@
-import beautifulsoup
+from bs4 import BeautifulSoup 
 
-def returnpagedata(url):
+def returnpagedata():
     return "Fun"

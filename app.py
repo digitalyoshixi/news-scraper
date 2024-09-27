@@ -1,11 +1,13 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import webscraper
 
 app = Flask(__name__) # referencing this file
 
-print(webscraper.returnfun())
+print(webscraper.returnpagedata())
 @app.route('/', methods=['POST','GET'])
 def index():
+    myreq = request
+    breakpoint()
     print(request)
     return render_template('index.html') 
 
