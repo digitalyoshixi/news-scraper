@@ -1,4 +1,4 @@
-#!/home/yoshixi/Documents/news-scraper/bin/python
+#!/home/yoshixi/news-scraper/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
