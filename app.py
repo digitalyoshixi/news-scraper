@@ -4,18 +4,19 @@ import webscraper
 app = Flask(__name__) # referencing this file
 
 print(webscraper.returnpagedata())
-@app.route('/', methods=['POST','GET'])
+@app.route('/', methods=['GET'])
 def index():
-    # Authentication
-    
 
-    # GET data
-    #if request.method == "GET":
-        #print(request.args)
-        #print(request.args["EEE"]) # this is a query parameter
 
     return render_template('index.html') 
 
+
+@app.route('/scrape', methods=['POST'])
+def scrape():
+    # GET data
+    if request.method == "POST":
+        urltoscrape = request.form['url']
+    return render_template('index.html') # return homepage
 
 
 
