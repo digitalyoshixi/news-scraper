@@ -4,8 +4,22 @@ async function handleSubmit(event) {
     
     const inputValue = document.getElementById('inputField').value;
     
-    
-    // Add your custom logic here
+    const data = {
+        url : inputValue
+    };
+    console.log(data)
+
+    fetch("../../scrape", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(result => console.log(result))
+      .catch(error => console.error('Error:', error));
+       
 
     
     return false; // Prevent the form from submitting
