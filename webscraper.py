@@ -36,9 +36,13 @@ def arstechnica(articledict):
         for tag in ptags:
             for a in tag.findAll('a'):
                 a.decompose()
-            totalbody += str(tag).strip('<p>').strip('</p>')
+            totalbody += str(tag).strip('<p>').strip('</p>') + "\n"
         article_author = soup.find('a', class_="text-orange-400 hover:text-orange-500").text.strip()
         article_title = soup.find('h1', class_="mb-3 font-serif text-4xl font-bold text-gray-100 md:text-6xl md:leading-[1.05]").text.strip()
+        print(article_title)
+        print("==============")
+        print(totalbody)
+        print("==================")
         # update dictionary
         articledict[article_link] = (article_author, article_title, totalbody)
 # make a python dictionary
