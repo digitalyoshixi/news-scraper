@@ -30,19 +30,31 @@ def arstechnica(articledict):
 
         individual_article_html = requests.get(article_link).content
         soup = BeautifulSoup(individual_article_html, 'html.parser')
-        article_body = soup.find('div', class_="post-content post-content-double text-xl lg:pl-[72px]")
-        ptags = article_body.findAll('p')
-        totalbody = ""
-        for tag in ptags:
-            for a in tag.findAll('a'):
-                a.decompose()
-            totalbody += str(tag).strip('<p>').strip('</p>') + "\n"
+        article_bodies = soup.findAll('div', class_="post-content post-content-double text-xl lg:pl-[72px]")
+        totalbody = []
+        for article_body in article_bodies:
+            ptags = article_body.findAll('p')
+            for tag in ptags:
+                atags = []
+                for a in tag.findAll('a'):
+                    atags.append((a.text,a['href']))
+                    #a.decompose()
+                temptag = tag.text
+                lastindex = 0
+                while len(atags) > 0:
+                    nextatag = atags[0][0]
+                    lastindex = temptag.find(nextatag)
+                    print(nextatag, lastindex)
+                    oktext = temptag[:lastindex]
+                    print(oktext)
+                    totalbody.append((oktext,))
+                    totalbody.append(atags.pop(0))
+                totalbody.append((temptag[lastindex:],))
+                print(totalbody)
+                #totalbody.append(str(tag).strip('<p>').strip('</p>'))
+                breakpoint()
         article_author = soup.find('a', class_="text-orange-400 hover:text-orange-500").text.strip()
         article_title = soup.find('h1', class_="mb-3 font-serif text-4xl font-bold text-gray-100 md:text-6xl md:leading-[1.05]").text.strip()
-        print(article_title)
-        print("==============")
-        print(totalbody)
-        print("==================")
         # update dictionary
         articledict[article_link] = (article_author, article_title, totalbody)
 # make a python dictionary
