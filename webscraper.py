@@ -91,7 +91,6 @@ allarticles = {}
 #arstechnica(allarticles)
 
 
-
 def the_verge(articledict):
     '''(the verge doesn't have links to each article?)
     url = 'https://www.theverge.com/tech/'
