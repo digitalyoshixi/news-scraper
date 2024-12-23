@@ -5,7 +5,6 @@ import json
 def returnpagedata():
     return "Fun"
 
-
 def scrapewebsite(url : str) -> str:
     """
     return the required contents of a given url

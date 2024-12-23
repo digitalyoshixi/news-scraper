@@ -27,9 +27,12 @@ h1 {
 .center {
 
   margin : auto;
-  width : 50%;
   text-align: center;
   
+}
+
+.tagsview {
+  flex-direction: row,
 }
 
 .toprow {
