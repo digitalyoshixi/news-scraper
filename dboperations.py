@@ -15,19 +15,27 @@ except Exception as e:
     print("Unable to connect to the database.")
     print(e)
 
+# Data nornalization
+def listtodict(inplist : list):
+    retdict = dict()
+    for i in range(len(inplist)):
+        retdict[i] = inplist[i]
+    return retdict
+
 # ---- CRUD Operations ----
 
 # Add Row to table
-def add_entry(url: str, authors: dict, content: dict, tags: list) -> None:
+def add_entry(url: str, authors: list, content: dict, tags: list) -> None:
     with conn:  # assuming we have connection
         with conn.cursor() as dbcurs:
             try:
                 # Insert JSON object into the database
                 dbcurs.execute(f"""
                     INSERT INTO articles (url, authors, content, tags) VALUES
-                    ('{url}', '{json.dumps(authors)}'::jsonb, '{json.dumps(content)}'::jsonb, '{json.dumps(tags)}');
+                    ('{url}', '{json.dumps(listtodict(authors))}'::jsonb, '{json.dumps(content)}'::jsonb, '{json.dumps(listtodict(tags))}');
                 """)
             except (Exception, psycopg2.DatabaseError) as error:
                 print(error)
+
 # Example call to add_entry
-add_entry('marimo', {'1': "Dimiti", '2': "ZAMBAI"}, {'1': ["goldlock"]}, ['Homber'])
+add_entry('marimo', ["Dmitri", "Zombie"], {'0': ["the towers have been hit again :/"]}, ['Cool', 'Fun'])
