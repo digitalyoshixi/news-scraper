@@ -6,10 +6,8 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 postgrespass = os.getenv('postgrespass')
-print(postgrespass)
-
 # Connect to the database
-conn = psycopg2.connect(f"DATABASE_URL=postgresql://postgres.gqujynuglauuqaicuuvy:{postgrespass}@aws-0-us-east-1.pooler.supabase.com:6543/postgres")
+conn = psycopg2.connect(f"postgresql://postgres.gqujynuglauuqaicuuvy:{postgrespass}@aws-0-us-east-1.pooler.supabase.com:6543/postgres")
 
 print(conn)
 # ---- CRUD Operations ----
