@@ -21,16 +21,16 @@ def getarticlebody(ptags, headerurl=""):
     [
         # paragraph 1
         [
-        (normaltext, ),
-        (specialtext, url),
-        (normaltext,),
+        [normaltext, ""],
+        [specialtext, url],
+        [normaltext, ""],
         ...
         ],
         # paragrahph2
         [
-        (normaltext, ),
-        (specialtext, url),
-        (normaltext,),
+        [normaltext, ""],
+        [specialtext, url],
+        [normaltext, ""],
         ...
         ],
     ]
@@ -44,7 +44,7 @@ def getarticlebody(ptags, headerurl=""):
                     actualurl = a['href']
                     if not 'http' in actualurl[:5]:
                         actualurl = headerurl+actualurl
-                    atags.append((a.text,actualurl))
+                    atags.append([a.text,actualurl])
                     #a.decompose()
                 temptag = tag.text
                 lastindex = 0
@@ -53,9 +53,9 @@ def getarticlebody(ptags, headerurl=""):
                     aindex = temptag.find(nextatag)
                     oktext = temptag[lastindex:aindex]
                     lastindex = aindex+len(atags[0][0])
-                    paragraph.append((oktext,))
+                    paragraph.append([oktext,""])
                     paragraph.append(atags.pop(0))
-                paragraph.append((temptag[lastindex:],))
+                paragraph.append([temptag[lastindex:],])
                 totalbody.append(paragraph)
     return totalbody
 
@@ -83,7 +83,7 @@ def arstechnica(articledict):
             article_title = soup.find('h1', class_="mb-3 font-serif text-4xl font-bold text-gray-100 md:text-6xl md:leading-[1.05]").text.strip()
             article_subtitle = soup.find('p', class_="my-3 text-2xl leading-[1.1] text-gray-300 md:mt-7 md:leading-[1.2]").text.strip()
             # update dictionary
-            articledict[article_link] = (article_author, article_title, article_subtitle, totalbody)
+            articledict[article_link] = [article_author, article_title, article_subtitle, totalbody]
 
 
 def the_verge(articledict):
@@ -114,7 +114,7 @@ def the_verge(articledict):
                 for tag in ptags:
                     totalbody.extend(getarticlebody(ptags,"https://www.theverge.com"))
             #print(article_link)
-            print("------------------")
+            #print("------------------")
             #print(article_author)
             #get article tag
             article_tags = []
@@ -126,19 +126,19 @@ def the_verge(articledict):
 #            print(article_tags)
             meta_article_tags = soup.find('meta', {'name':'parsely-tags'})
             article_tags = meta_article_tags.attrs.get('content').split(",")
-            print(article_tags) 
+            #print(article_tags) 
 
             # get article author(s)
             article_authors = soup.findAll('meta', {'name':'parsely-author'})
             authors = []
             for article_author in article_authors:
                 authors.append(article_author.attrs.get('content'))
-            print(authors) 
+            #print(authors) 
             # article titles
             article_title = soup.find('h1').text
             article_subtitle = soup.find('h2').text
             # update dictionary
-            articledict[article_link] = (authors, article_tags, article_title, article_subtitle, totalbody)
+            articledict[article_link] = [authors, article_tags, article_title, article_subtitle, totalbody]
 
 # make a python dictionary
 #allarticles = {}

@@ -11,7 +11,13 @@ import dboperations
 all_articles = {}
 webscraper.the_verge(all_articles)
 print(all_articles)
-breakpoint()
 
 for url in all_articles:
-    dboperations.add_entry(url, all_articles[url][0], all_articles[url][2], all_articles[url][1])
+    # articledict[article_link] = (authors, article_tags, article_title, article_subtitle, totalbody)cles:
+    title = all_articles[url][2]
+    subtitle = all_articles[url][3]
+    authors = all_articles[url][0]
+    content = all_articles[url][4]
+    tags = all_articles[url][1]
+    breakpoint()
+    dboperations.add_entry(url, title , subtitle , authors, content, tags)

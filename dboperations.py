@@ -25,7 +25,7 @@ def listtodict(inplist : list):
 # ---- CRUD Operations ----
 
 # Add Row to table
-def add_entry(url: str, title : str, subtitle : str, authors: list, content: dict, tags: list) -> None:
+def add_entry(url: str, title : str, subtitle : str, authors: list, content: list, tags: list) -> None:
     with conn:  # assuming we have connection
         with conn.cursor() as dbcurs:
             try:
