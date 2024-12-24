@@ -25,14 +25,14 @@ def listtodict(inplist : list):
 # ---- CRUD Operations ----
 
 # Add Row to table
-def add_entry(url: str, authors: list, content: dict, tags: list) -> None:
+def add_entry(url: str, title : str, subtitle : str, authors: list, content: dict, tags: list) -> None:
     with conn:  # assuming we have connection
         with conn.cursor() as dbcurs:
             try:
                 # Insert data into the database with text arrays for authors and tags
                 dbcurs.execute(f"""
-                    INSERT INTO articles (url, authors, content, tags) VALUES
-                    ('{url}', ARRAY{authors}::text[], ARRAY{content}::text[], ARRAY{tags}::text[]);
+                    INSERT INTO articles (url, title, subtitle, authors, content, tags) VALUES
+                    ('{url}', '{title}', '{subtitle}', ARRAY{authors}::text[], ARRAY{content}::text[], ARRAY{tags}::text[]);
                 """)
             except (Exception, psycopg2.DatabaseError) as error:
                 print(error)
@@ -48,6 +48,6 @@ def find_tag(tag : str):
                 print(error)
 
 # Example call to add_entry
-#add_entry('my article haha hee', ["Dmitri", "Zombie"], [["the towers have been hit again :/"], ["this is the second time this happened this week"], ["https://balsamic.web"]], ['Cool', 'Bool'])
+add_entry('myarticle.com', "here is my article", "this article goes into the deep", ["Dmitri", "Zombie"], [["the towers have been hit again :/"], ["this is the second time this happened this week"], ["https://balsamic.web"]], ['Cool', 'Bool'])
 # Example call for find_fag
 #print(find_tag("Cool"))

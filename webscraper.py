@@ -71,7 +71,7 @@ def arstechnica(articledict):
     individual_articles = soup.findAll('a', class_="relative block aspect-square h-auto w-16 overflow-hidden rounded-sm md:w-24")
     for individual_article in individual_articles:
         article_link = individual_article['href']
-        if not article_link in allarticles.keys():
+        if not article_link in articledict.keys():
             individual_article_html = requests.get(article_link).content
             soup = BeautifulSoup(individual_article_html, 'html.parser')
             article_bodies = soup.findAll('div', class_="post-content post-content-double text-xl lg:pl-[72px]")
@@ -84,10 +84,6 @@ def arstechnica(articledict):
             article_subtitle = soup.find('p', class_="my-3 text-2xl leading-[1.1] text-gray-300 md:mt-7 md:leading-[1.2]").text.strip()
             # update dictionary
             articledict[article_link] = (article_author, article_title, article_subtitle, totalbody)
-# make a python dictionary
-allarticles = {}
-
-#arstechnica(allarticles)
 
 
 def the_verge(articledict):
@@ -106,7 +102,7 @@ def the_verge(articledict):
     individual_articles = soup.findAll('a', class_="block h-full w-full")
     for individual_article in individual_articles:  
         article_link = "https://www.theverge.com" + individual_article['href']
-        if not article_link in allarticles.keys():
+        if not article_link in articledict.keys():
             individual_article_html = requests.get(article_link).content
             soup = BeautifulSoup(individual_article_html, 'html.parser')
             # get article body
@@ -144,9 +140,7 @@ def the_verge(articledict):
             # update dictionary
             articledict[article_link] = (authors, article_tags, article_title, article_subtitle, totalbody)
 
-the_verge(allarticles)
-
-
-
-with open('articles.json', 'w') as f:
-    json.dump(allarticles, f)
+# make a python dictionary
+#allarticles = {}
+#arstechnica(allarticles)
+#the_verge(allarticles)

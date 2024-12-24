@@ -5,5 +5,13 @@ It will:
 - Perform CRUD operations defined in dboperations.py to store the webscraped results into the postgres database
 """
 
-import webscaper
+import webscraper
 import dboperations
+
+all_articles = {}
+webscraper.the_verge(all_articles)
+print(all_articles)
+breakpoint()
+
+for url in all_articles:
+    dboperations.add_entry(url, all_articles[url][0], all_articles[url][2], all_articles[url][1])
