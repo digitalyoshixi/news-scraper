@@ -29,13 +29,25 @@ def add_entry(url: str, authors: list, content: dict, tags: list) -> None:
     with conn:  # assuming we have connection
         with conn.cursor() as dbcurs:
             try:
-                # Insert JSON object into the database
+                # Insert data into the database with text arrays for authors and tags
                 dbcurs.execute(f"""
                     INSERT INTO articles (url, authors, content, tags) VALUES
-                    ('{url}', '{json.dumps(listtodict(authors))}'::jsonb, '{json.dumps(content)}'::jsonb, '{json.dumps(listtodict(tags))}');
+                    ('{url}', ARRAY{authors}::text[], ARRAY{content}::text[], ARRAY{tags}::text[]);
                 """)
+            except (Exception, psycopg2.DatabaseError) as error:
+                print(error)
+def find_tag(tag : str):
+    with conn: # assuming we have connection
+        with conn.cursor() as dbcurs:
+            try:
+                dbcurs.execute(f"SELECT * FROM articles WHERE tags @> ARRAY['{tag}'];")
+                results = dbcurs.fetchall()
+                # result = dbcurs.fetchone() # fetch only one row
+                return results
             except (Exception, psycopg2.DatabaseError) as error:
                 print(error)
 
 # Example call to add_entry
-add_entry('marimo', ["Dmitri", "Zombie"], {'0': ["the towers have been hit again :/"]}, ['Cool', 'Fun'])
+#add_entry('my article haha hee', ["Dmitri", "Zombie"], [["the towers have been hit again :/"], ["this is the second time this happened this week"], ["https://balsamic.web"]], ['Cool', 'Bool'])
+# Example call for find_fag
+#print(find_tag("Cool"))
