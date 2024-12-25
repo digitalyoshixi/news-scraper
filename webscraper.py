@@ -55,7 +55,7 @@ def getarticlebody(ptags, headerurl=""):
                     lastindex = aindex+len(atags[0][0])
                     paragraph.append([oktext,""])
                     paragraph.append(atags.pop(0))
-                paragraph.append([temptag[lastindex:],])
+                paragraph.append([temptag[lastindex:],""])
                 totalbody.append(paragraph)
     return totalbody
 

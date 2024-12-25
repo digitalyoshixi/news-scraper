@@ -5,7 +5,7 @@ def getresp(message : str):
     response: ChatResponse = chat(model='llama3.1', messages=[
       {
         'role': 'user',
-        'content': f"Respond only with a concise 4 sentence summary of the following article. Do not include a concluding summary {message}"
+        'content': f"Respond only with a concise 4 sentence summary of the following article. Do not include a concluding sentence. {message}"
       },
     ])
     # or access fields directly from the response object

@@ -17,7 +17,7 @@ for url in all_articles:
     title = all_articles[url][2]
     subtitle = all_articles[url][3]
     authors = all_articles[url][0]
-    content = all_articles[url][4]
+    content = all_articles[url][4][0]
     tags = all_articles[url][1]
     breakpoint()
     dboperations.add_entry(url, title , subtitle , authors, content, tags)
