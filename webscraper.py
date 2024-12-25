@@ -74,17 +74,21 @@ def arstechnica(articledict):
         if not article_link in articledict.keys():
             individual_article_html = requests.get(article_link).content
             soup = BeautifulSoup(individual_article_html, 'html.parser')
-            article_bodies = soup.findAll('div', class_="post-content post-content-double text-xl lg:pl-[72px]")
+            article_bodies = soup.findAll('div', class_="post-content post-content-double")
             totalbody = []
             for article_body in article_bodies:
                 ptags = article_body.findAll('p')
                 totalbody.extend(getarticlebody(ptags))
-            article_author = soup.find('a', class_="text-orange-400 hover:text-orange-500").text.strip()
-            article_title = soup.find('h1', class_="mb-3 font-serif text-4xl font-bold text-gray-100 md:text-6xl md:leading-[1.05]").text.strip()
-            article_subtitle = soup.find('p', class_="my-3 text-2xl leading-[1.1] text-gray-300 md:mt-7 md:leading-[1.2]").text.strip()
+            article_tags = []
+            #breakpoint()
+            article_authors = soup.findAll('a', class_="text-orange-400 hover:text-orange-500")
+            authors = []
+            for article_author in article_authors:
+                authors.append(article_author.attrs.get('content'))
+            article_title = soup.find('h1', class_="mb-3").text.strip()
+            article_subtitle = soup.find('p', class_="text-gray-550").text.strip()
             # update dictionary
-            articledict[article_link] = [article_author, article_title, article_subtitle, totalbody]
-
+            articledict[article_link] = [authors, article_tags, article_title, article_subtitle, totalbody]
 
 def the_verge(articledict):
     '''(the verge doesn't have links to each article?)
@@ -144,3 +148,4 @@ def the_verge(articledict):
 #allarticles = {}
 #arstechnica(allarticles)
 #the_verge(allarticles)
+#print(allarticles)
