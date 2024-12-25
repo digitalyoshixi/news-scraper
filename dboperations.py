@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 import json
 load_dotenv()
 postgrespass = os.getenv('postgrespass')
+
 # Connect to the database
 try:
     conn = psycopg2.connect(f"postgresql://postgres.gqujynuglauuqaicuuvy:{postgrespass}@aws-0-us-east-1.pooler.supabase.com:6543/postgres")
@@ -46,8 +47,20 @@ def find_tag(tag : str):
                 return results
             except (Exception, psycopg2.DatabaseError) as error:
                 print(error)
-
+# get the 10 most recent articles from the data base (based on order of ID)
+def get_recent_articles():
+    with conn: # we have connection 
+        with conn.cursor() as dbcurs:
+            try:
+                dbcurs.execute("SELECT * FROM articles ORDER BY id DESC LIMIT 10")
+                results = dbcurs.fetchall()         
+                return results
+            except (Exception, psycopg2.DatabaseError) as error:
+                print(error)
+            
 # Example call to add_entry
 #add_entry('myarticle.com', "here is my article", "this article goes into the deep", ["Dmitri", "Zombie"], [["the towers have been hit again :/"], ["this is the second time this happened this week"], ["https://balsamic.web"]], ['Cool', 'Bool'])
 # Example call for find_fag
 #print(find_tag("Cool"))
+# Example call to get_recent_articles
+#print(get_recent_articles())
