@@ -9,8 +9,8 @@ import webscraper
 import dboperations
 
 all_articles = {}
-#webscraper.arstechnica(all_articles)
-webscraper.the_verge(all_articles)
+webscraper.arstechnica(all_articles)
+#webscraper.the_verge(all_articles)
 #print(all_articles)
 
 for url in all_articles:
@@ -20,4 +20,5 @@ for url in all_articles:
     authors = all_articles[url][0]
     content = all_articles[url][4]
     tags = all_articles[url][1]
+    print(title)
     dboperations.add_entry(url, title , subtitle , authors, content, tags)

@@ -66,6 +66,7 @@ def getarticlebody(ptags, headerurl=""):
                     paragraph.append([sanitizestring(oktext),""])
                     toadd = atags.pop(0)
                     toadd[0] = sanitizestring(toadd[0])
+                    toadd[1] = sanitizestring(toadd[1])
                     paragraph.append(toadd)
                 paragraph.append([sanitizestring(temptag[lastindex:]),''])
                 #paragraph.append(['Hi im hay',''])
