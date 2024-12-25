@@ -14,6 +14,16 @@ def scrapewebsite(url : str) -> str:
     3. Article body
     """
 
+def sanitizestring(inpstr : str) -> str:
+    """
+    For any strings that have ' as a substring within the main string, replace that with the character 
+
+    """
+    liststr = list(inpstr)
+    for i in range(len(liststr)):
+        if liststr[i] == "\'":
+            liststr[i]  = "’"
+    return ''.join(liststr)
 def getarticlebody(ptags, headerurl=""):
     """
     from a list of all paragraph tags (which is supposed to represent the article body), return a formatted version that returns a list
@@ -53,10 +63,14 @@ def getarticlebody(ptags, headerurl=""):
                     aindex = temptag.find(nextatag)
                     oktext = temptag[lastindex:aindex]
                     lastindex = aindex+len(atags[0][0])
-                    paragraph.append([oktext,""])
-                    paragraph.append(atags.pop(0))
-                paragraph.append([temptag[lastindex:],""])
+                    paragraph.append([sanitizestring(oktext),""])
+                    toadd = atags.pop(0)
+                    toadd[0] = sanitizestring(toadd[0])
+                    paragraph.append(toadd)
+                paragraph.append([sanitizestring(temptag[lastindex:]),''])
+                #paragraph.append(['Hi im hay',''])
                 totalbody.append(paragraph)
+                #breakpoint()
     return totalbody
 
 def arstechnica(articledict):
@@ -79,14 +93,14 @@ def arstechnica(articledict):
             for article_body in article_bodies:
                 ptags = article_body.findAll('p')
                 totalbody.extend(getarticlebody(ptags))
-            article_tags = []
+            article_tags = ['temporarytag']
             #breakpoint()
             article_authors = soup.findAll('a', class_="text-orange-400 hover:text-orange-500")
             authors = []
             for article_author in article_authors:
-                authors.append(article_author.attrs.get('content'))
-            article_title = soup.find('h1', class_="mb-3").text.strip()
-            article_subtitle = soup.find('p', class_="text-gray-550").text.strip()
+                authors.append(article_author.text.strip())
+            article_title = sanitizestring(soup.find('h1', class_="mb-3").text.strip())
+            article_subtitle = sanitizestring(soup.find('p', class_="text-gray-550").text.strip())
             # update dictionary
             articledict[article_link] = [authors, article_tags, article_title, article_subtitle, totalbody]
 

@@ -48,6 +48,6 @@ def find_tag(tag : str):
                 print(error)
 
 # Example call to add_entry
-add_entry('myarticle.com', "here is my article", "this article goes into the deep", ["Dmitri", "Zombie"], [["the towers have been hit again :/"], ["this is the second time this happened this week"], ["https://balsamic.web"]], ['Cool', 'Bool'])
+#add_entry('myarticle.com', "here is my article", "this article goes into the deep", ["Dmitri", "Zombie"], [["the towers have been hit again :/"], ["this is the second time this happened this week"], ["https://balsamic.web"]], ['Cool', 'Bool'])
 # Example call for find_fag
 #print(find_tag("Cool"))
