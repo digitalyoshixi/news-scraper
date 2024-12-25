@@ -92,7 +92,8 @@ def arstechnica(articledict):
             totalbody = []
             for article_body in article_bodies:
                 ptags = article_body.findAll('p')
-                totalbody.extend(getarticlebody(ptags))
+                for i in getarticlebody(ptags):
+                    totalbody.extend(i)
             article_tags = ['temporarytag']
             #breakpoint()
             article_authors = soup.findAll('a', class_="text-orange-400 hover:text-orange-500")
@@ -128,9 +129,8 @@ def the_verge(articledict):
             totalbody = []
             for article_body in article_bodies:
                 ptags = article_body.findAll('p', class_='duet--article--dangerously-set-cms-markup duet--article--standard-paragraph mb-20 font-fkroman text-18 leading-160 -tracking-1 selection:bg-franklin-20 dark:text-white dark:selection:bg-blurple [&_a:hover]:shadow-highlight-franklin dark:[&_a:hover]:shadow-highlight-blurple [&_a]:shadow-underline-black dark:[&_a]:shadow-underline-white')
-                
-                for tag in ptags:
-                    totalbody.extend(getarticlebody(ptags,"https://www.theverge.com"))
+                for i in getarticlebody(ptags, "https://www.theverge.com"):
+                    totalbody.extend(i)
             #print(article_link)
             #print("------------------")
             #print(article_author)
