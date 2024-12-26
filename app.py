@@ -10,7 +10,11 @@ app.config['CORS-HEADERS'] = 'Content-Type'
 
 @app.route('/', methods=['GET'])
 def index():
-    return render_template('index.html') 
+    articles = [
+            ["Title 1", "News Outlet 1", "/static/images/someimage.png", "Some description here"],
+            ["Title 2", "Some News Outlet", "/static/images/someimage.png", "Some description here"],
+            ]
+    return render_template('index.html', articles=articles) 
 
 @app.route('/scrape', methods=['POST'])
 @cross_origin()
