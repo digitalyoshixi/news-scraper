@@ -32,10 +32,11 @@
             <div class="d-flex flex-column">
               <div class="d-flex flex-row">
                 <div class="ms-2 me-auto fw-bold">{{article[6]}}</div>
-                <span class="badge text-bg-primary rounded-pill" style="height: 20px;">{{article[1]}}</span>
+                <span class="badge text-bg-primary rounded-pill" style="height: 20px;">{{article[2][:30] + "..."}}</span>
               </div>
               <div class="d-flex flex-row">
-                <div style="width : 80%">  
+                <img src="/static/img/tempimg.png" style="padding:10px;width: 100px; height: 100px;"/>
+                <div style="width : 60%">  
                   {{article[4][1][0]}}
                 </div>
                 <div style="align-self: flex-end;">
