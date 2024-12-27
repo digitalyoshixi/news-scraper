@@ -63,4 +63,3 @@ def get_recent_articles():
 # Example call for find_fag
 #print(find_tag("Cool"))
 # Example call to get_recent_articles
-#print(get_recent_articles())

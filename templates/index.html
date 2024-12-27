@@ -26,14 +26,18 @@
         </div>
         <hr />
         
-        <ul class="list-group list-group-numbered">
+        <ul class="list-group">
           {% for article in articles %}
           <li class="list-group-item d-flex justify-content-between align-items-start">
-            <div class="ms-2 me-auto">
-              <div class="fw-bold">{{article[0]}}</div>
-              Content for list item
+            <div class="d-flex flex-column">
+              <div class="d-flex flex-row">
+                <div class="ms-2 me-auto fw-bold">{{article[6]}}</div>
+                <span class="badge text-bg-primary rounded-pill">{{article[1]}}</span>
+              </div>
+              <div class="d-flex flex-row">
+                Some content here
+              </div>
             </div>
-            <span class="badge text-bg-primary rounded-pill">{{article[1]}}</span>
           </li>
           {% endfor %}
         </ul>
