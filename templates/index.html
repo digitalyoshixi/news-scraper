@@ -32,10 +32,17 @@
             <div class="d-flex flex-column">
               <div class="d-flex flex-row">
                 <div class="ms-2 me-auto fw-bold">{{article[6]}}</div>
-                <span class="badge text-bg-primary rounded-pill">{{article[1]}}</span>
+                <span class="badge text-bg-primary rounded-pill" style="height: 20px;">{{article[1]}}</span>
               </div>
               <div class="d-flex flex-row">
-                Some content here
+                <div style="width : 80%">  
+                  {{article[4][1][0]}}
+                </div>
+                <div style="align-self: flex-end;">
+                    <a href="{{article[2]}}" style="height : 40px" class="btn btn-danger">
+                        Read More
+                    </a>
+                </div>
               </div>
             </div>
           </li>
