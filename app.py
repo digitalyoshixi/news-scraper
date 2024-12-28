@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, url_for
 from flask_cors import CORS, cross_origin
 from llamamodel import getresp
-
+from dboperations import get_recent_articles
 #import webscraper
 
 app = Flask(__name__) # referencing this file
@@ -10,10 +10,18 @@ app.config['CORS-HEADERS'] = 'Content-Type'
 
 @app.route('/', methods=['GET'])
 def index():
-    articles = [
-        ["ReactJS 15 Released", "Some Image Here", "SomeURL.com", "Shortdesc"],
-        ["AGI in 2025", "this is the image", "TheURL.com", "Shortdesc"],
-        ]
+    articles = get_recent_articles()
+    # an article has:
+    """
+    0 : id int
+    1 : date-time object
+    2 : url string
+    3 : authors list
+    4 : content double matrix
+    5 : tags list
+    6 : title string
+    7 : subtitle string
+    """
     return render_template('index.html', articles=articles) 
 
 @app.route('/scrape', methods=['POST'])
