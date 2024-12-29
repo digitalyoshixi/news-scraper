@@ -7,6 +7,7 @@ It will:
 
 import webscraper
 import dboperations
+import geminimodel
 
 all_articles = {}
 webscraper.arstechnica(all_articles)
@@ -14,11 +15,14 @@ webscraper.arstechnica(all_articles)
 #print(all_articles)
 
 for url in all_articles:
-    # articledict[article_link] = (authors, article_tags, article_title, article_subtitle, totalbody)cles:
+    # articledict[article_link] = (authors, article_tags, article_title, article_subtitle, totalbody):
     title = all_articles[url][2]
     subtitle = all_articles[url][3]
     authors = all_articles[url][0]
     content = all_articles[url][4]
-    tags = all_articles[url][1]
+    tags = all_articles[url][1] + geminimodel.get_tags(content).strip().split(", ")
+    aisummary = webscraper.sanitizestring(geminimodel.get_summary(content))
+    imageurl = ""
     print(title)
-    dboperations.add_entry(url, title , subtitle , authors, content, tags)
+    breakpoint()
+    dboperations.add_entry(url, title , subtitle , authors, content, tags, imageurl, aisummary)

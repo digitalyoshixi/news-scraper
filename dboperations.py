@@ -26,14 +26,14 @@ def listtodict(inplist : list):
 # ---- CRUD Operations ----
 
 # Add Row to table
-def add_entry(url: str, title : str, subtitle : str, authors: list, content: list, tags: list) -> None:
+def add_entry(url: str, title : str, subtitle : str, authors: list, content: list, tags: list = [], imageurl : str = "", aisummary : str = "") -> None:
     with conn:  # assuming we have connection
         with conn.cursor() as dbcurs:
             try:
                 # Insert data into the database with text arrays for authors and tags
                 dbcurs.execute(f"""
-                    INSERT INTO articles (url, title, subtitle, authors, content, tags) VALUES
-                    ('{url}', '{title}', '{subtitle}', ARRAY{authors}::text[], ARRAY{content}::text[], ARRAY{tags}::text[]);
+                    INSERT INTO articles (url, title, subtitle, authors, content, tags, imageurl, aisummary) VALUES
+                    ('{url}', '{title}', '{subtitle}', ARRAY{authors}::text[], ARRAY{content}::text[], ARRAY{tags}::text[], '{imageurl}', '{aisummary}');
                 """)
             except (Exception, psycopg2.DatabaseError) as error:
                 print(error)

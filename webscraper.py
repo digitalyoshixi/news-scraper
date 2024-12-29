@@ -95,7 +95,7 @@ def arstechnica(articledict):
                 ptags = article_body.findAll('p')
                 for i in getarticlebody(ptags):
                     totalbody.extend(i)
-            article_tags = ['temporarytag']
+            article_tags = []
             #breakpoint()
             article_authors = soup.findAll('a', class_="text-orange-400 hover:text-orange-500")
             authors = []
