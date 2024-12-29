@@ -29,3 +29,5 @@ SQLAlchemy==2.0.35
 typing_extensions==4.12.2
 urllib3==2.3.0
 Werkzeug==3.0.4
+boto3
+google-generativeai
