@@ -21,6 +21,8 @@ def index():
     5 : tags list
     6 : title string
     7 : subtitle string
+    8 : imageurl string
+    9 : aisummary string
     """
     return render_template('index.html', articles=articles) 
 

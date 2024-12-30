@@ -12,9 +12,9 @@ postgrespass = os.getenv('postgrespass')
 try:
     conn = psycopg2.connect(f"postgresql://postgres.gqujynuglauuqaicuuvy:{postgrespass}@aws-0-us-east-1.pooler.supabase.com:6543/postgres")
     print("Connected to the data base sucessfully!")
+    print(conn)
 except Exception as e:
     print("Unable to connect to the database.")
-    print(e)
 
 # Data nornalization
 def listtodict(inplist : list):
@@ -23,7 +23,6 @@ def listtodict(inplist : list):
         retdict[i] = inplist[i]
     return retdict
 
-# ---- CRUD Operations ----
 
 # Add Row to table
 def add_entry(url: str, title : str, subtitle : str, authors: list, content: list, tags: list = [], imageurl : str = "", aisummary : str = "") -> None:
@@ -57,7 +56,18 @@ def get_recent_articles():
                 return results
             except (Exception, psycopg2.DatabaseError) as error:
                 print(error)
-            
+
+# check if a URL is already stored in the current database.
+def url_exists(url):
+    with conn: # we have connection 
+        with conn.cursor() as dbcurs:
+            try:
+                dbcurs.execute(f"SELECT * FROM articles WHERE url = '{url}'")
+                results = dbcurs.fetchall()         
+                return len(results) != 0
+            except (Exception, psycopg2.DatabaseError) as error:
+                print(error)
+
 # Example call to add_entry
 #add_entry('myarticle.com', "here is my article", "this article goes into the deep", ["Dmitri", "Zombie"], [["the towers have been hit again :/"], ["this is the second time this happened this week"], ["https://balsamic.web"]], ['Cool', 'Bool'])
 # Example call for find_fag
