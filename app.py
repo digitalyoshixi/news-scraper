@@ -1,12 +1,14 @@
 from flask import Flask, render_template, request, url_for
 from flask_cors import CORS, cross_origin
 from llamamodel import getresp
-from dboperations import get_recent_articles
+from dboperations import get_recent_articles, find_tag
+from geminimodel import tagwhitelist
 #import webscraper
 
 app = Flask(__name__) # referencing this file
 cors = CORS(app)
 app.config['CORS-HEADERS'] = 'Content-Type'
+
 
 @app.route('/', methods=['GET'])
 def index():
@@ -24,11 +26,26 @@ def index():
     8 : imageurl string
     9 : aisummary string
     """
-    alltags = []
-    for i in articles:
-        alltags.extend(i[5])
-    alltags = list(set(alltags))
-    return render_template('index.html', articles=articles, alltags=alltags) 
+    return render_template('index.html', articles=articles, alltags=tagwhitelist) 
+
+@app.route('/tags/<tag>', methods=['GET'])
+def tagpage(tag):
+    articles = find_tag(tag)
+    # an article has:
+    """
+    0 : id int
+    1 : date-time object
+    2 : url string
+    3 : authors list
+    4 : content double matrix
+    5 : tags list
+    6 : title string
+    7 : subtitle string
+    8 : imageurl string
+    9 : aisummary string
+    """
+    print(tag)
+    return render_template('index.html', articles=articles, alltags=tagwhitelist) 
 
 @app.route('/scrape', methods=['POST'])
 @cross_origin()

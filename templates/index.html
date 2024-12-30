@@ -15,7 +15,7 @@
         <hr />
         <div class="center tagsview">
           {% for tag in alltags %}
-          <button type="submit" class="btn btn-outline-info">{{tag}}</button>
+          <a type="submit" href={{"/tags/" + tag}} class="btn btn-outline-info">{{tag}}</a>
           {% endfor %}
         </div>
         <hr />
@@ -25,7 +25,7 @@
           <li class="list-group-item d-flex justify-content-between align-items-start">
             <div class="d-flex flex-column">
               <div class="d-flex flex-row">
-                <div class="ms-2 me-auto fw-bold">{{article[6]}}</div>
+                <div class="ms-2 me-auto fw-bold" style="width: 25rem;">{{article[6]}}</div>
 
               <div class="d-flex flex-column">
                 <span class="badge text-bg-primary rounded-pill" style="height: 20px; width: 15rem">{{article[2][:30] + "..."}}</span>
@@ -38,12 +38,12 @@
               </div>
               <div class="d-flex flex-row">
                 <img src={{article[8]}} style="padding:10px;width: 100px; height: 100px;"/>
-                <div style="width : 60%">  
+                <div style="width : 80%">  
                   {{article[9]}}
                 </div>
                 <div style="align-self: flex-end;">
                     <a href="{{article[2]}}" style="height : 40px" class="btn btn-danger">
-                        Read More
+                        Read
                     </a>
                 </div>
               </div>

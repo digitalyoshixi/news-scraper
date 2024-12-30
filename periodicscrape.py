@@ -22,10 +22,10 @@ for url in all_articles:
         subtitle = all_articles[url][3]
         authors = all_articles[url][0]
         content = all_articles[url][4]
-        tags = all_articles[url][1] + webscraper.sanitizestring(geminimodel.get_tags(content).strip()).split(", ")
+        tags = geminimodel.get_tags(content)
         aisummary = webscraper.sanitizestring(geminimodel.get_summary(content))
         imageurl = all_articles[url][5]
-        print(title)
+        print(f"scraping {title}")
         dboperations.add_entry(url, title , subtitle , authors, content, tags, imageurl, aisummary)
     else:
         print(f"{url} already in db")
