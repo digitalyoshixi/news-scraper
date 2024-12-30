@@ -24,7 +24,7 @@ for url in all_articles:
         content = all_articles[url][4]
         tags = all_articles[url][1] + webscraper.sanitizestring(geminimodel.get_tags(content).strip()).split(", ")
         aisummary = webscraper.sanitizestring(geminimodel.get_summary(content))
-        imageurl = ""
+        imageurl = all_articles[url][5]
         print(title)
         dboperations.add_entry(url, title , subtitle , authors, content, tags, imageurl, aisummary)
     else:

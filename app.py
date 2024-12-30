@@ -24,7 +24,11 @@ def index():
     8 : imageurl string
     9 : aisummary string
     """
-    return render_template('index.html', articles=articles) 
+    alltags = []
+    for i in articles:
+        alltags.extend(i[5])
+    alltags = list(set(alltags))
+    return render_template('index.html', articles=articles, alltags=alltags) 
 
 @app.route('/scrape', methods=['POST'])
 @cross_origin()

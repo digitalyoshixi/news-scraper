@@ -14,15 +14,9 @@
         <h1 class="center">News Lurker</h1>
         <hr />
         <div class="center tagsview">
-          <button type="submit" class="btn btn-outline-info">Tag1</button>
-          <button type="submit" class="btn btn-outline-info">Tag1</button>
-          <button type="submit" class="btn btn-outline-info">Tag1</button>
-          <button type="submit" class="btn btn-outline-info">Tag1</button>
-          <button type="submit" class="btn btn-outline-info">Tag1</button>
-          <button type="submit" class="btn btn-outline-info">Tag1</button>
-          <button type="submit" class="btn btn-outline-info">Tag1</button>
-          <button type="submit" class="btn btn-outline-info">Tag1</button>
-          <button type="submit" class="btn btn-outline-info">Tag1</button>
+          {% for tag in alltags %}
+          <button type="submit" class="btn btn-outline-info">{{tag}}</button>
+          {% endfor %}
         </div>
         <hr />
         
@@ -43,7 +37,7 @@
               </div>
               </div>
               <div class="d-flex flex-row">
-                <img src="/static/img/tempimg.png" style="padding:10px;width: 100px; height: 100px;"/>
+                <img src={{article[8]}} style="padding:10px;width: 100px; height: 100px;"/>
                 <div style="width : 60%">  
                   {{article[9]}}
                 </div>

@@ -103,8 +103,9 @@ def arstechnica(articledict):
                 authors.append(article_author.text.strip())
             article_title = sanitizestring(soup.find('h1', class_="mb-3").text.strip())
             article_subtitle = sanitizestring(soup.find('p', class_="text-gray-550").text.strip())
+            imageurl = soup.find('img', class_="intro-image")['src']
             # update dictionary
-            articledict[article_link] = [authors, article_tags, article_title, article_subtitle, totalbody]
+            articledict[article_link] = [authors, article_tags, article_title, article_subtitle, totalbody, imageurl]
 
 def the_verge(articledict):
     '''(the verge doesn't have links to each article?)
@@ -156,8 +157,13 @@ def the_verge(articledict):
             # article titles
             article_title = soup.find('h1').text
             article_subtitle = soup.find('h2').text
+            # image url
+            imageurl = soup.find('img', attrs={
+                'style' : "position:absolute;top:0;left:0;bottom:0;right:0;box-sizing:border-box;padding:0;border:none;margin:auto;display:block;width:0;height:0;min-width:100%;max-width:100%;min-height:100%;max-height:100%;object-fit:cover"
+            })['src']
+            article_bodies = soup.findAll('div', class_="post-content post-content-double")
             # update dictionary
-            articledict[article_link] = [authors, article_tags, article_title, article_subtitle, totalbody]
+            articledict[article_link] = [authors, article_tags, article_title, article_subtitle, totalbody, imageurl]
 
 # make a python dictionary
 #allarticles = {}
