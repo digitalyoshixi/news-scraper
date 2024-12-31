@@ -55,4 +55,4 @@ def scrape():
         print(request.form)
     return request.form
 
-app.run(host="0.0.0.0", port=5500,debug=False) # run the app on localhost:5500 running on all adddresses (AUTORELOADER IS DISABLED)
+app.run(host="0.0.0.0", port=5500, debug=False) # run the app on localhost:5500 running on all adddresses (AUTORELOADER IS DISABLED)
